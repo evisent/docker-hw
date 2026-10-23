@@ -1,0 +1,19 @@
+services:
+  frontend:
+    build: .
+    ports:
+      - "8080:80"
+    depends_on:
+      - api
+
+  api:
+    image: containous/whoami
+
+  logger:
+    image: busybox
+    command: sh -c 'while true; do date >> /data/log.txt; sleep 5; done'
+    volumes:
+      - logger-data:/data
+
+volumes:
+  logger-data:
